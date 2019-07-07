@@ -12,7 +12,7 @@ import styled from 'styled-components';
 import { StylesProvider } from '@material-ui/styles';
 
 
-class Inbox extends Component {
+class TopBar extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -23,7 +23,7 @@ class Inbox extends Component {
         return (
             <StylesProvider injectFirst>
             <Page>
-                <TopBar position="static">
+                <Bar position="static">
                     <Toolbar>
                         <IconButton edge="start" color="inherit" aria-label="Menu">
                             <MenuIcon />
@@ -36,14 +36,14 @@ class Inbox extends Component {
                             <AccountCircle></AccountCircle>
                         </MenuItem>
                     </Toolbar>
-                </TopBar>
+                </Bar>
             </Page>
             </StylesProvider>
         );
     }
 }
 
-const TopBar = styled(AppBar)`
+const Bar = styled(AppBar)`
     background-color : #1976d2;
     width : 100%;
     padding : 0;
@@ -54,4 +54,4 @@ const Page = styled(Container)`
     padding: 0;
 `
 
-export default Inbox;
+export default TopBar;
