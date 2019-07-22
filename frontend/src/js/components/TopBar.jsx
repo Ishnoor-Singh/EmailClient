@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import styled from 'styled-components';
 import { StylesProvider } from '@material-ui/styles';
+import Box from '@material-ui/core/Box';
 
 
 class TopBar extends Component {
@@ -22,22 +23,22 @@ class TopBar extends Component {
     render() {
         return (
             <StylesProvider injectFirst>
-            <Page>
-                <Bar position="static">
-                    <Toolbar>
+                <Bar position="static" width = "100%">
+                    <MenuContainer>
                         <IconButton edge="start" color="inherit" aria-label="Menu">
-                            <MenuIcon />
+                            <MenuIcon order =  "10"/>
                         </IconButton>
-                        <Typography variant="h6">
+                        <Box flexGrow={1}>
+                            <Typography  variant="h6">
                             Inbox
-                        </Typography>
-                        <Typography varient = "h6" color="inherit">{this.state.name}</Typography>
+                            </Typography>
+                        </Box>
+                        <Typography  varient = "h6" color="inherit">{this.state.name}</Typography>
                         <MenuItem>
                             <AccountCircle></AccountCircle>
                         </MenuItem>
-                    </Toolbar>
+                    </MenuContainer>
                 </Bar>
-            </Page>
             </StylesProvider>
         );
     }
@@ -46,12 +47,11 @@ class TopBar extends Component {
 const Bar = styled(AppBar)`
     background-color : #1976d2;
     width : 100%;
-    padding : 0;
+
     display: flex;
 `
-
-const Page = styled(Container)`
-    padding: 0;
+const MenuContainer = styled(Toolbar)`
+    display : flex;
+    flex-direction :row;
 `
-
 export default TopBar;
