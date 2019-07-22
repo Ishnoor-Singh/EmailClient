@@ -16,16 +16,13 @@ import Box from '@material-ui/core/Box';
 class TopBar extends Component {
     constructor(props){
         super(props);
-        this.state = {
-            name: "Name"
-        }
+
     }
-    render() {
+    render(props) {
         return (
-            <StylesProvider injectFirst>
                 <Bar position="static" width = "100%">
                     <MenuContainer>
-                        <IconButton edge="start" color="inherit" aria-label="Menu">
+                        <IconButton edge="start" color="inherit" aria-label="Menu" onClick = {this.props.openMenu}>
                             <MenuIcon order =  "10"/>
                         </IconButton>
                         <Box flexGrow={1}>
@@ -33,13 +30,12 @@ class TopBar extends Component {
                             Inbox
                             </Typography>
                         </Box>
-                        <Typography  varient = "h6" color="inherit">{this.state.name}</Typography>
+                        <Typography  varient = "h6" color="inherit">{this.props.name}</Typography>
                         <MenuItem>
                             <AccountCircle></AccountCircle>
                         </MenuItem>
                     </MenuContainer>
                 </Bar>
-            </StylesProvider>
         );
     }
 }

@@ -1,12 +1,13 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import TopBar from "./js/components/TopBar";
+import InboxView from "./InboxView";
 
 function App() {
   return (
-    <TopBar>
-    </TopBar>
+    <div>
+    <InboxView/>
+    </div>
   );
 }
 
