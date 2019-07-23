@@ -20,22 +20,20 @@ class TopBar extends Component {
     }
     render(props) {
         return (
-                <Bar position="static" width = "100%">
-                    <MenuContainer>
-                        <IconButton edge="start" color="inherit" aria-label="Menu" onClick = {this.props.openMenu}>
-                            <MenuIcon order =  "10"/>
-                        </IconButton>
-                        <Box flexGrow={1}>
-                            <Typography  variant="h6">
-                            Inbox
-                            </Typography>
-                        </Box>
-                        <Typography  varient = "h6" color="inherit">{this.props.name}</Typography>
-                        <MenuItem>
-                            <AccountCircle></AccountCircle>
-                        </MenuItem>
-                    </MenuContainer>
-                </Bar>
+            <MenuContainer>
+            <IconButton edge="start" color="inherit" aria-label="Menu" onClick = {this.props.toggleDrawer}>
+                <MenuIcon order =  "10"/>
+            </IconButton>
+            <Box flexGrow={1}>
+                <Typography  variant="h6">
+                Inbox
+                </Typography>
+            </Box>
+            <Typography  varient = "h6" color="inherit">{this.props.name}</Typography>
+            <MenuItem>
+                <AccountCircle></AccountCircle>
+            </MenuItem>
+        </MenuContainer>
         );
     }
 }
@@ -43,7 +41,7 @@ class TopBar extends Component {
 const Bar = styled(AppBar)`
     background-color : #1976d2;
     width : 100%;
-
+    z-index:24 !important;
     display: flex;
 `
 const MenuContainer = styled(Toolbar)`
