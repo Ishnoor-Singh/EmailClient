@@ -126,7 +126,8 @@ import Box from '@material-ui/core/Box';
 import { StylesProvider } from '@material-ui/styles'
 import SideBarContents from './js/components/SideBarContents';
 import TopBar from './js/components/TopBar';
-
+import ComposeEmil from './js/components/ComposeEmail';
+import NewEmail from "./js/components/NewEmail";
 
 const drawerWidth = 240;
 
@@ -156,14 +157,6 @@ export default function ClippedDrawer() {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("Name");
 
-  function handleDrawerOpen() {
-    setOpen(true);
-  }
-
-  function handleDrawerClose() {
-    setOpen(false);
-  }
-
   function toggleDrawer() {
       setOpen(!open);
   }
@@ -172,14 +165,6 @@ export default function ClippedDrawer() {
   return (
     <StylesProvider injectFirst>
     <div className={classes.root}>
-    
-      {/* <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" noWrap>
-            Clipped drawer
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
         <Bar position="fixed"  className = {classes.appBar}>
         <TopBar toggleDrawer = {toggleDrawer} name = {name}/>
         </Bar>
@@ -220,6 +205,12 @@ export default function ClippedDrawer() {
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
+        {/**
+        array.forEach(el=><EMail el = {el}/>)
+         */}
+        <ComposeContainer>
+          <NewEmail/>
+        </ComposeContainer>
       </main>
     </div>
     </StylesProvider>
@@ -232,4 +223,17 @@ const Bar = styled(AppBar)`
 const MenuContainer = styled(Toolbar)`
     display : flex;
     flex-direction :row;
+`
+
+const ComposeContainer = styled.div`
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-height:500px;
+  min-width:400px;
+  height: 40%;
+  width: 30%;
+  background-color: white;
+  border:5px;
+  border-radius:3px
 `
