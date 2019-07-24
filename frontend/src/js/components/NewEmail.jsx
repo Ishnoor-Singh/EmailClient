@@ -3,6 +3,12 @@ import ComposeEmail from "./ComposeEmail"
 import styled from "styled-components";
 import TextField from '@material-ui/core/TextField';
 
+const styles = {
+    floatingLabelFocusStyle: {
+        color: "black"
+    }
+}
+
 
 export default class NewEmail extends Component {
     constructor(props){
@@ -16,17 +22,26 @@ export default class NewEmail extends Component {
         return (
             <Container>
                 <Top>
-                    Compose Email
+                    <ComposeText>Compose Email</ComposeText>
+                    <CloseButton onClick = {this.props.toggleCompose}>
+                        close
+                    </CloseButton>
                 </Top>
                 <TextField
-        label="Send To"
-        placeholder="Send To"
+         label="Subject"
+        // placeholder="Subject"
         fullWidth
-        margin="normal"
-        variant="filled"
-        // InputLabelProps={{
-        //   shrink: true,
-        // }}
+        InputLabelProps={{
+            style: { color: '#7c7c7c' },
+          }}
+      />
+                      <TextField
+         label="Reciepients"
+        // placeholder="Subject"
+        fullWidth
+        InputLabelProps={{
+            style: { color: '#7c7c7c' },
+          }}
       />
  
                 <Compose/>
@@ -36,22 +51,19 @@ export default class NewEmail extends Component {
 }
 
 const Top = styled.div`
-    background-color: black;
+    background-color: #404040;
     width: 100%;
     height: 30px;
     display:flex;
+    flex-direction:row;
     order:0;
     color:white;
-    padding:4px;
 `
 
 const Container = styled.div`
     display :flex;
     flex-direction:column;
-    border-color:black;
-    border:5px;
-    border-style:solid;
-    border-radius:5px;
+    border : 5px solid #404040;
     width:100%;
     height:100%;
 `
@@ -59,4 +71,16 @@ const Container = styled.div`
     flex-grow:1;
     order:1;
     overflow:scroll;
+ `
+
+ const CloseButton = styled.button`
+    color : white;
+    background-color: transparent;
+    border:none;
+    align-self:end;
+    height: 100%;
+ `
+
+ const ComposeText = styled.span`
+    flex-grow:1;
  `

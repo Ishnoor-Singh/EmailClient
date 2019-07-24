@@ -1,6 +1,10 @@
 import { createMuiTheme } from "@material-ui/core/styles";
+import { green, orange } from '@material-ui/core/colors';
 
-export default theme =  createMuiTheme({
-  overrides: {
-  }
+const  theme =  createMuiTheme({
+  overrides:{
+  palette:{
+    main: green[500],
+  }}
 });
+export default theme;

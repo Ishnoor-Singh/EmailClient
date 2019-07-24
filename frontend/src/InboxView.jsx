@@ -127,7 +127,14 @@ import { StylesProvider } from '@material-ui/styles'
 import SideBarContents from './js/components/SideBarContents';
 import TopBar from './js/components/TopBar';
 import ComposeEmil from './js/components/ComposeEmail';
-import NewEmail from "./js/components/NewEmail";
+import NewEmail from "./js/components/NewEmail"
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import theme from "./js/components/theme";
+import { ThemeProvider } from '@material-ui/styles';
+
+
+
 
 const drawerWidth = 240;
 
@@ -155,15 +162,18 @@ const useStyles = makeStyles(theme => ({
 export default function ClippedDrawer() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [compose, setCompose] = React.useState(false);
   const [name, setName] = React.useState("Name");
 
   function toggleDrawer() {
       setOpen(!open);
   }
-
+  function toggleCompose() {
+    setCompose(!compose);
+}
 
   return (
-    <StylesProvider injectFirst>
+    <StylesProvider injectFirst >
     <div className={classes.root}>
         <Bar position="fixed"  className = {classes.appBar}>
         <TopBar toggleDrawer = {toggleDrawer} name = {name}/>
@@ -205,12 +215,15 @@ export default function ClippedDrawer() {
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
-        {/**
-        array.forEach(el=><EMail el = {el}/>)
-         */}
         <ComposeContainer>
-          <NewEmail/>
+            {compose && <NewEmail  toggleCompose = {toggleCompose}/>}
+          
+          {!compose && <ThemeProvider theme = {theme}><ComposeButton onClick = {toggleCompose} >
+            <AddIcon />
+          </ComposeButton>
+          </ThemeProvider>}
         </ComposeContainer>
+
       </main>
     </div>
     </StylesProvider>
@@ -227,13 +240,19 @@ const MenuContainer = styled(Toolbar)`
 
 const ComposeContainer = styled.div`
   position: fixed;
-  right: 0;
-  bottom: 0;
+  right: 5%;
+  bottom: 1%;
   min-height:500px;
   min-width:400px;
   height: 40%;
   width: 30%;
-  background-color: white;
   border:5px;
   border-radius:3px
+  display:flex;
+`
+
+const ComposeButton = styled(Fab)`
+position: fixed;
+right: 5%;
+bottom: 3%;
 `
