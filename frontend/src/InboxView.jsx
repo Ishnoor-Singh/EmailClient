@@ -132,7 +132,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import theme from "./js/components/theme";
 import { ThemeProvider } from '@material-ui/styles';
-
+import Draggable from 'react-draggable';
 
 
 
@@ -158,6 +158,8 @@ const useStyles = makeStyles(theme => ({
   },
   toolbar: theme.mixins.toolbar,
 }));
+
+
 
 export default function ClippedDrawer() {
   const classes = useStyles();
@@ -204,9 +206,10 @@ export default function ClippedDrawer() {
           arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
           donec massa sapien faucibus et molestie ac.
         </Typography>
+        
         <Typography paragraph>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
+          facilisi etiam digni  ssim diam. Pulvinar elementum integer enim neque volutpat ac
           tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
           consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
           vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
@@ -215,14 +218,15 @@ export default function ClippedDrawer() {
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
-        <ComposeContainer>
-            {compose && <NewEmail  toggleCompose = {toggleCompose}/>}
+        
+            {compose &&<ComposeContainer> <NewEmail  toggleCompose = {toggleCompose}/></ComposeContainer>}
           
-          {!compose && <ThemeProvider theme = {theme}><ComposeButton onClick = {toggleCompose} >
+          {!compose && <ComposeButton onClick = {toggleCompose} >
             <AddIcon />
+            
           </ComposeButton>
-          </ThemeProvider>}
-        </ComposeContainer>
+          }
+        
 
       </main>
     </div>
@@ -240,6 +244,7 @@ const MenuContainer = styled(Toolbar)`
 
 const ComposeContainer = styled.div`
   position: fixed;
+  background-color:white;
   right: 5%;
   bottom: 1%;
   min-height:500px;
