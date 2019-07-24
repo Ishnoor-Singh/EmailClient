@@ -126,6 +126,14 @@ import Box from '@material-ui/core/Box';
 import { StylesProvider } from '@material-ui/styles'
 import SideBarContents from './js/components/SideBarContents';
 import TopBar from './js/components/TopBar';
+import ComposeEmil from './js/components/ComposeEmail';
+import NewEmail from "./js/components/NewEmail"
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import theme from "./js/components/theme";
+import { ThemeProvider } from '@material-ui/styles';
+import Draggable from 'react-draggable';
+
 
 
 const drawerWidth = 240;
@@ -151,35 +159,24 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
 }));
 
+
+
 export default function ClippedDrawer() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [compose, setCompose] = React.useState(false);
   const [name, setName] = React.useState("Name");
-
-  function handleDrawerOpen() {
-    setOpen(true);
-  }
-
-  function handleDrawerClose() {
-    setOpen(false);
-  }
 
   function toggleDrawer() {
       setOpen(!open);
   }
-
+  function toggleCompose() {
+    setCompose(!compose);
+}
 
   return (
-    <StylesProvider injectFirst>
+    <StylesProvider injectFirst >
     <div className={classes.root}>
-    
-      {/* <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" noWrap>
-            Clipped drawer
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
         <Bar position="fixed"  className = {classes.appBar}>
         <TopBar toggleDrawer = {toggleDrawer} name = {name}/>
         </Bar>
@@ -209,9 +206,10 @@ export default function ClippedDrawer() {
           arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
           donec massa sapien faucibus et molestie ac.
         </Typography>
+        
         <Typography paragraph>
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
+          facilisi etiam digni  ssim diam. Pulvinar elementum integer enim neque volutpat ac
           tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
           consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
           vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
@@ -220,6 +218,16 @@ export default function ClippedDrawer() {
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
+        
+            {compose &&<ComposeContainer> <NewEmail  toggleCompose = {toggleCompose}/></ComposeContainer>}
+          
+          {!compose && <ComposeButton onClick = {toggleCompose} >
+            <AddIcon />
+            
+          </ComposeButton>
+          }
+        
+
       </main>
     </div>
     </StylesProvider>
@@ -232,4 +240,24 @@ const Bar = styled(AppBar)`
 const MenuContainer = styled(Toolbar)`
     display : flex;
     flex-direction :row;
+`
+
+const ComposeContainer = styled.div`
+  position: fixed;
+  background-color:white;
+  right: 5%;
+  bottom: 1%;
+  min-height:500px;
+  min-width:400px;
+  height: 40%;
+  width: 30%;
+  border:5px;
+  border-radius:3px
+  display:flex;
+`
+
+const ComposeButton = styled(Fab)`
+position: fixed;
+right: 5%;
+bottom: 3%;
 `
