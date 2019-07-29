@@ -4,7 +4,7 @@ import { green, orange } from '@material-ui/core/colors';
 const  theme =  createMuiTheme({
   overrides:{
   palette:{
-    main: green[500],
+    primary: green[500],
   }}
 });
 export default theme;
