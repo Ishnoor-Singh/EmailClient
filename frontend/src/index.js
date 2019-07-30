@@ -14,11 +14,10 @@ import { Provider } from "react-redux";
 
 ReactDOM.render(
     <Router>
-      <Switch>
-        <Route exact path="/" component={Login} />
-        <Route exact path="/inbox/" component={InboxView} />
-      </Switch>
+        <Route exact path="/" render={() => <Login></Login>}  component = {Login}/>
+        <Route exact path="/inbox/" render={() => <InboxView/>} component = {InboxView}/>
     </Router>
+   
     , document.getElementById('root'));
     // If you want your app to work offline and load faster, you can change
     // unregister() to register() below. Note this comes with some pitfalls.
