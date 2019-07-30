@@ -1,128 +1,200 @@
-import React, { Component } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
-import { StylesProvider } from '@material-ui/styles'
-import SideBarContents from './js/components/SideBarContents';
-import TopBar from './js/components/TopBar';
-import NewEmail from "./js/components/NewEmail"
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import {styled} from '@material-ui/styles';
-import theme from './js/components/theme.js'
-import Email from './js/components/Email';
-
+import React, { Component } from "react";
+import clsx from "clsx";
+import Drawer from "@material-ui/core/Drawer";
+import { AppBar, Box, Typography } from "@material-ui/core";
+import { StylesProvider } from "@material-ui/styles";
+import SideBarContents from "./js/components/SideBarContents";
+import TopBar from "./js/components/TopBar";
+import NewEmail from "./js/components/NewEmail";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import { styled } from "@material-ui/styles";
+import Email from "./js/components/Email";
+import "./App.css";
+import { fade, makeStyles } from "@material-ui/core/styles";
+import theme from "./js/components/theme";
 const drawerWidth = 240;
 
-
-
 export default class InboxView extends Component {
-  constructor(props){
-    super(props);
-    this.state= {
-      open : false,
-      compose : false,
-      name : "Name",
-      email : "name@fakeEmail.com"
-    }
-    this.toggleCompose = this.toggleCompose.bind();
-    this.toggleDrawer = this.toggleDrawer.bind();
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			open: false,
+			compose: false,
+			name: "Name",
+			email: "name@fakeEmail.com",
+			catrgories: ["Today", "Yesterday", "Earlier this Month"]
+		};
+		this.toggleCompose = this.toggleCompose.bind();
+		this.toggleDrawer = this.toggleDrawer.bind();
+	}
 
-  toggleCompose = () => {
-    this.setState((state, props) => { return { compose : !this.state.compose }})
-  }
+	toggleCompose = () => {
+		this.setState((state, props) => {
+			return { compose: !this.state.compose };
+		});
+	};
 
-  toggleDrawer = () => {
-    this.setState((state, props) => { return { open : !this.state.open }})
-    
-  }
+	toggleDrawer = () => {
+		this.setState((state, props) => {
+			return { open: !this.state.open };
+		});
+	};
 
-  render() {
-    return (
-      <div>
-        <StylesProvider injectFirst >
-    <div display = "flex"> 
-        <MenuBar position="fixed">
-          <TopBar toggleDrawer = {this.toggleDrawer} name = {this.state.name} email= {this.state.email} history = {this.props.history} location = {this.props.location}></TopBar>
-        </MenuBar>
-        <FlexBoxContainer>
-        {this.state.open && 
-        <SideDrawer
-        variant="permanent"
-        >
-        <ToolBar />
-        <SideBarContents/>
-        </SideDrawer>}
-        <FlexEmailContainer>
-        <ToolBar />
+	render() {
+		return (
+			<div>
+				<StylesProvider injectFirst>
+					<div display="flex">
+						<MenuBar position="fixed">
+							<TopBar
+								toggleDrawer={this.toggleDrawer}
+								name={this.state.name ? this.state.name : this.state.email}
+								email={this.state.email}
+								history={this.props.history}
+								location={this.props.location}
+							/>
+						</MenuBar>
+						<EmailArea open={this.state.open} toggleCompose={this.state.toggleCompose} categories={this.state.catrgories} />
+						{this.state.compose && (
+							<ComposeContainer>
+								{" "}
+								<NewEmail toggleCompose={this.toggleCompose} />
+							</ComposeContainer>
+						)}
 
-         <Email toggleCompose= {this.toggleCompose}/>
-        </FlexEmailContainer>
-        </FlexBoxContainer>
-        
-            {this.state.compose &&<ComposeContainer> <NewEmail  toggleCompose = {this.toggleCompose}/></ComposeContainer>}
-          
-            {!this.state.compose && <ComposeButton onClick = {this.toggleCompose} >
-            <AddIcon />
-            
-          </ComposeButton>}
-      </div>
-    </StylesProvider>
-      </div>
-    )
-  }
+						{!this.state.compose && (
+							<ComposeButton onClick={this.toggleCompose}>
+								<AddIcon />
+							</ComposeButton>
+						)}
+					</div>
+				</StylesProvider>
+			</div>
+		);
+	}
 }
 
+const useStyles = makeStyles((theme) => ({
+	root: {
+		display: "flex"
+	},
+	drawerPaper: {
+		width: drawerWidth
+	},
+	content: {
+		flexGrow: 1,
+		transition: theme.transitions.create("margin", {
+			easing: theme.transitions.easing.sharp,
+			duration: theme.transitions.duration.leavingScreen
+		}),
+		marginLeft: 0,
+		marginRight: -drawerWidth
+	},
+	contentShift: {
+		transition: theme.transitions.create("margin", {
+			easing: theme.transitions.easing.easeOut,
+			duration: theme.transitions.duration.enteringScreen
+		}),
+		marginLeft: drawerWidth,
+		marginRight: -drawerWidth
+	}
+}));
 
-const Bar = styled(AppBar)({    
-  backgroundColor : "#1976d2",
-  Height:"10%",
-  maxHeight:80
-})
+const SideBar = ({ open }) => {
+	const classes = useStyles();
+	console.log(open);
+	return (
+		<SideDrawer
+			variant="persistent"
+			open={open}
+			classes={{
+				paper: classes.drawerPaper
+			}}>
+			<ToolBar />
+			<SideBarContents />
+		</SideDrawer>
+	);
+};
 
-const ComposeContainer = styled('div')({
-  position: "fixed",
-  backgroundColor:"white",
-  right: "5%",
-  bottom: "1%",
-  minHeight:500,
-  minWidth:400,
-  height: "40%",
-  width: "30%",
-  border:5,
-  borderRadius:3,
-  display:"flex"
-})
+const EmailArea = (props) => {
+	const classes = useStyles();
+	console.log(props);
+	return (
+		<FlexBoxContainer>
+			<main
+				className={clsx(classes.content, {
+					[classes.contentShift]: props.open
+				})}>
+				<ToolBar />
+				{props.categories.map((category) => (
+					<EmailCategory category={category} />
+				))}
+			</main>
+			<SideBar open={props.open} />
+		</FlexBoxContainer>
+	);
+};
+
+const EmailCategory = (props) => {
+	return (
+		<div>
+			<Typography variant="overline" display="block">
+				{props.category}
+			</Typography>
+			{[...Array(10)].map((e, i) => (
+				<Email />
+			))}
+		</div>
+	);
+};
+
+const Bar = styled(AppBar)({
+	backgroundColor: "#1976d2",
+	Height: "10%",
+	maxHeight: 80
+});
+
+const ComposeContainer = styled("div")({
+	position: "fixed",
+	backgroundColor: "white",
+	right: "5%",
+	bottom: "1%",
+	minHeight: 500,
+	minWidth: 400,
+	height: "40%",
+	width: "30%",
+	border: 5,
+	borderRadius: 3,
+	display: "flex"
+});
 
 const ComposeButton = styled(Fab)({
-position: "fixed",
-right: "5%",
-bottom: "3%"
-})
+	position: "fixed",
+	right: "5%",
+	bottom: "3%",
+	backgroundColor: "#ea4334",
+	color: "white",
+	"&:hover": {
+		backgroundColor: fade("#c71607", 1),
+		color: fade("#e8e8e8", 1)
+	}
+});
 
-const MenuBar = styled(Bar)(({theme})=>({
-  zIndex: 1201,
-}))
+const MenuBar = styled(Bar)(({ theme }) => ({
+	zIndex: 1201
+}));
 
 const SideDrawer = styled(Drawer)({
-  width: drawerWidth,
-  flexShrink: 0,
-})
+	width: drawerWidth,
+	flexShrink: 0
+});
 
-const ToolBar = styled('div')(({theme})=>({
-  marginTop:70
-}))
+const ToolBar = styled("div")(({ theme }) => ({
+	marginTop: 70
+}));
 
-const FlexBoxContainer = styled('div')({
-  display: "flex",
-  flexDirection:"row",
-})
-
-const FlexEmailContainer = styled('div')({
-  flexGrow:1,
-  order:2,
-
-})
+const FlexBoxContainer = styled("div")({
+	display: "flex",
+	flexDirection: "row"
+});
