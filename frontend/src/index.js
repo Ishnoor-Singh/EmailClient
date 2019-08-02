@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  withRouter
+  // Switch,
+  Route
+  // Link,
+  // withRouter
 } from "react-router-dom";
-import { Provider } from "react-redux";
+// import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 import Login from "./Login";
 import InboxView from "./InboxView";

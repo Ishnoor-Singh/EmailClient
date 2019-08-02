@@ -99,10 +99,3 @@ const CloseButton = styled.button`
 const ComposeText = styled.span`
   flex-grow: 1;
 `;
-
-const ComposeContainer = styled.div`
-  order: 2;
-  flex-grow: 1;
-  display: flex;
-  background-color: red;
-`;

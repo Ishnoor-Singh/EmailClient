@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Typography from "@material-ui/core/Typography";
 import { styled } from "@material-ui/styles";
 import { Box, Button } from "@material-ui/core";

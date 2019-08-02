@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
@@ -83,12 +82,6 @@ class TopBar extends Component {
   }
 }
 
-const Bar = styled(AppBar)`
-  background-color: #1976d2;
-  width: 100%;
-  z-index: 24 !important;
-  display: flex;
-`;
 const MenuContainer = styled(Toolbar)`
   display: flex;
   flex-direction: row;

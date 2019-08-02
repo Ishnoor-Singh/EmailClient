@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
-import { AppBar, Box, Typography } from "@material-ui/core";
+import { AppBar, Typography } from "@material-ui/core";
 import { StylesProvider, styled } from "@material-ui/styles";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
