@@ -1,12 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
 import InboxView from "./InboxView";
 
 function App() {
   return (
     <div>
-    <InboxView/>
+      <InboxView />
     </div>
   );
 }
