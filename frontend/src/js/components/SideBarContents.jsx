@@ -12,7 +12,7 @@ import MailIcon from "@material-ui/icons/Mail";
 export default function SideBarContents() {
   return (
     <div>
-      <List paddingTop={500}>
+      <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>

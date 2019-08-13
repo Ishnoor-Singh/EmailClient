@@ -4,6 +4,7 @@ import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
 import ExpansionPanelActions from "@material-ui/core/ExpansionPanelActions";
 import Typography from "@material-ui/core/Typography";
+import axios from "axios";
 import Button from "@material-ui/core/Button";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
@@ -39,7 +40,6 @@ export default class Email extends Component {
           <ExpansionPanelSummary>
             <Box
               display="flex"
-              bcackgroundColor="red"
               flexDirection="row"
               justifyContent="center"
               alignItems="center"
@@ -75,7 +75,7 @@ export default class Email extends Component {
                   control={
                     <Checkbox
                       icon={<FavoriteBorder />}
-                      CheckedIcon={<Favorite />}
+                      checkedIcon={<Favorite />}
                       value="checkedH"
                     />
                   }
@@ -111,13 +111,13 @@ const Container = styled("div")({
   paddingBottom: 5
 });
 
-const ContainerHeading = styled("Typography")({
+const ContainerHeading = styled(Typography)({
   fontSize: theme.typography.pxToRem(15)
 });
 
 const ContainerColumn = styled(Box)({});
 
-const ContainerSecHeading = styled("Typography")({
+const ContainerSecHeading = styled(Typography)({
   fontSize: theme.typography.pxToRem(15),
   color: theme.palette.text.secondary
 });

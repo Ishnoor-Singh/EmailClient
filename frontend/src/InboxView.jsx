@@ -6,6 +6,7 @@ import { StylesProvider, styled } from "@material-ui/styles";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
+import axios from "axios";
 import SideBarContents from "./js/components/SideBarContents";
 import TopBar from "./js/components/TopBar";
 import NewEmail from "./js/components/NewEmail";
@@ -14,6 +15,7 @@ import "./App.css";
 import theme from "./js/components/theme";
 
 const drawerWidth = 240;
+axios.defaults.withCredentials = true;
 
 export default class InboxView extends Component {
   constructor(props) {
@@ -27,6 +29,13 @@ export default class InboxView extends Component {
     };
     this.toggleCompose = this.toggleCompose.bind();
     this.toggleDrawer = this.toggleDrawer.bind();
+    axios({
+      method: "get",
+      url: "http://localhost:5000/user",
+      withCredentials: true
+    }).then(res => {
+      this.setState({ name: res.data.user.name, email: res.data.user.emailId });
+    });
   }
 
   toggleCompose = () => {
@@ -150,7 +159,7 @@ const EmailCategory = props => {
         {props.category}
       </Typography>
       {[...Array(10)].map((e, i) => (
-        <Email key={e} />
+        <Email key={i} />
       ))}
     </div>
   );
