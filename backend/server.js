@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const profileRoutes = require("./routes/profile");
+const emailRoutes = require("./routes/emails");
 const passportSetup = require("./config/passport");
 const keys = require("./config/keys");
 const User = require("./models/user");
@@ -36,6 +37,7 @@ mongoose.connect(keys.mongoDB.dbURI, () => {
 // set up routes
 app.use("/auth", authRoutes);
 app.use("/profile", profileRoutes);
+app.use("/emails", emailRoutes);
 
 // create home route
 app.get("/", (req, res) => {

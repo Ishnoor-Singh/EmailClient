@@ -25,7 +25,8 @@ export default class InboxView extends Component {
       compose: false,
       name: "Name",
       email: "name@fakeEmail.com",
-      catrgories: ["Today", "Yesterday", "Earlier this Month"]
+      catrgories: ["Today", "Yesterday", "Earlier this Month"],
+      emails: []
     };
     this.toggleCompose = this.toggleCompose.bind();
     this.toggleDrawer = this.toggleDrawer.bind();
@@ -36,6 +37,27 @@ export default class InboxView extends Component {
     }).then(res => {
       this.setState({ name: res.data.user.name, email: res.data.user.emailId });
     });
+    axios({
+      method: "get",
+      url: "http://localhost:5000/emails",
+      withCredentials: true
+    })
+      .then(res => {
+        console.log(res.data);
+        console.log(this.state);
+        // this.setState({
+        //   emails:res.data.arr
+        // })
+        console.log(res.data);
+
+        this.setState({
+          emails: res.data.arr
+        });
+        console.log(this.state);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   toggleCompose = () => {
@@ -68,6 +90,7 @@ export default class InboxView extends Component {
               open={this.state.open}
               toggleCompose={this.state.toggleCompose}
               categories={this.state.catrgories}
+              emails={this.state.emails}
             />
             {this.state.compose && (
               <ComposeContainer>
@@ -142,9 +165,12 @@ const EmailArea = props => {
         })}
       >
         <ToolBar />
-
         {props.categories.map(category => (
-          <EmailCategory category={category} key={category} />
+          <EmailCategory
+            category={category}
+            key={category}
+            emails={props.emails}
+          />
         ))}
       </main>
       <SideBar open={props.open} />
@@ -153,14 +179,19 @@ const EmailArea = props => {
 };
 
 const EmailCategory = props => {
+  var i = 0;
   return (
     <div>
       <Typography variant="overline" display="block">
         {props.category}
       </Typography>
-      {[...Array(10)].map((e, i) => (
-        <Email key={i} />
-      ))}
+
+      {props.emails &&
+        props.emails.map(email => {
+          i++;
+          return <Email email={email} key={i} />;
+        })}
+      {!props.emails && [...Array(10)].map((e, i) => <Email key={i} />)}
     </div>
   );
 };

@@ -25,15 +25,15 @@ export default class Email extends Component {
       },
       content:
         "Consequat mauris nuncCongue nisi vitae suscipit. Fringilla est ullamcorper eget nullafacilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat actincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpaconsequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sedvulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. Ihendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et.",
-      pinned: false,
-      subject: "thus is the subject",
-      cc: ["first", "second"],
-      bcc: ["first", "third"]
+      // pinned: false,
+      subject: "thus is the subject"
+      // cc: ["first", "second"],
+      // bcc: ["first", "third"]
     };
   }
 
-  render() {
-    console.log(this.state.pinned + this.state.cc + this.state.bcc);
+  render(props) {
+    // console.log(this.state.pinned + this.state.cc + this.state.bcc);
     return (
       <Container>
         <ExpansionPanel>
@@ -48,7 +48,9 @@ export default class Email extends Component {
                 <ProfilePic
                   size="small"
                   name={
-                    this.state.sender.name
+                    this.props.email
+                      ? this.props.email.sender.name
+                      : this.state.sender.name
                       ? this.state.sender.name
                       : this.state.email
                   }
@@ -56,17 +58,28 @@ export default class Email extends Component {
               </ContainerColumn>
               <ContainerColumn order={0} paddingRight={10}>
                 <ContainerHeading>
-                  {this.state.sender.name
+                  {this.props.email
+                    ? this.props.email.sender.name
+                    : this.state.sender.name
                     ? this.state.sender.name
                     : this.state.email}
                 </ContainerHeading>
               </ContainerColumn>
               <ContainerColumn flexGrow={1} paddingRight={10}>
                 <ContainerSecHeading>
-                  <b>{`${this.state.subject}...  `}</b>
-                  {`${this.state.content.substring(
+                  <b>{`${
+                    this.props.email
+                      ? this.props.email.subject
+                      : this.state.subject
+                  }...                  `}</b>
+                  {`${(this.props.email
+                    ? this.props.email.content
+                    : this.state.content
+                  ).substring(
                     0,
-                    150 - this.state.subject.length
+                    150 - this.props.email
+                      ? this.props.email.subject.length
+                      : this.state.subject.length
                   )}...`}
                 </ContainerSecHeading>
               </ContainerColumn>
@@ -86,7 +99,9 @@ export default class Email extends Component {
           <ExpansionPanelDetails>
             <div>
               <Typography variant="caption">
-                {this.state.content}
+                {this.props.email
+                  ? this.props.email.content
+                  : this.state.content}
                 <br />
               </Typography>
             </div>

@@ -29,24 +29,26 @@ passport.use(
       User.findOne({
         googleId: profile.id
       }).then(currentUser => {
-        if (currentUser) {
-          console.log("user exists and has name " + currentUser.name);
-          done(null, currentUser);
-        } else {
-          new User({
-            googleId: profile.id,
-            name: profile.displayName,
-            emailId: profile._json.email
+        // if (currentUser) {
+        //   console.log("user exists and has name " + currentUser.name);
+        //   done(null, currentUser);
+        // } else {
+        new User({
+          googleId: profile.id,
+          name: profile.displayName,
+          emailId: profile._json.email,
+          accessToken: accessToken,
+          refreshToken: refreshToken
+        })
+          .save()
+          .then(newUser => {
+            console.log("new user created: ", newUser);
+            done(null, newUser);
           })
-            .save()
-            .then(newUser => {
-              console.log("new user created: ", newUser);
-              done(null, newUser);
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        }
+          .catch(err => {
+            console.log(err);
+          });
+        //}
       });
     }
   )
