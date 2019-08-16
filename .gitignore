@@ -59,3 +59,10 @@ typings/
 
 # next.js build output
 .next
+
+# keys.js
+backend/config/keys.js
+
+# lock files
+backend/yarn.lock
+frontend/yarn.lock
