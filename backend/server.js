@@ -14,7 +14,7 @@ const app = express();
 // use it before all route definitions
 app.use(cors({ origin: "http://localhost:3000" }));
 
-const PORT = 5000;
+const PORT = 8080;
 
 app.use(
   cookieSession({

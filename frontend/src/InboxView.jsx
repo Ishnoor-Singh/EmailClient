@@ -32,14 +32,14 @@ export default class InboxView extends Component {
     this.toggleDrawer = this.toggleDrawer.bind();
     axios({
       method: "get",
-      url: "http://localhost:5000/user",
+      url: "http://localhost:8080/user",
       withCredentials: true
     }).then(res => {
       this.setState({ name: res.data.user.name, email: res.data.user.emailId });
     });
     axios({
       method: "get",
-      url: "http://localhost:5000/emails",
+      url: "http://localhost:8080/emails",
       withCredentials: true
     })
       .then(res => {
@@ -94,7 +94,6 @@ export default class InboxView extends Component {
             />
             {this.state.compose && (
               <ComposeContainer>
-                {" "}
                 <NewEmail toggleCompose={this.toggleCompose} />
               </ComposeContainer>
             )}
