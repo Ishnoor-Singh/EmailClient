@@ -43,6 +43,7 @@ export default class Email extends Component {
               flexDirection="row"
               justifyContent="center"
               alignItems="center"
+              width="100%"
             >
               <ContainerColumn order={0} paddingRight={5}>
                 <ProfilePic
@@ -57,7 +58,7 @@ export default class Email extends Component {
                 />
               </ContainerColumn>
               <ContainerColumn order={0} paddingRight={10}>
-                <ContainerHeading>
+                <ContainerHeading style={{ minWidth: 100 }}>
                   {this.props.email
                     ? this.props.email.sender.name
                     : this.state.sender.name
